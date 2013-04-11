@@ -23,13 +23,13 @@ module Rails3JQueryAutocomplete
           :model => Movie, :method => :name, :options => @options, :term => "query"
         }) { @items }
 
-        mock(@controller).json_for_autocomplete(@items, :name, nil)
+        mock(@controller).json_for_autocomplete(@items, :name, nil, nil)
         get :autocomplete_movie_name, :term => 'query'
       end
 
       context 'no term is specified' do
         should "render an empty hash" do
-          mock(@controller).json_for_autocomplete({}, :name, nil)
+          mock(@controller).json_for_autocomplete({}, :name, nil, nil)
           get :autocomplete_movie_name
         end
       end

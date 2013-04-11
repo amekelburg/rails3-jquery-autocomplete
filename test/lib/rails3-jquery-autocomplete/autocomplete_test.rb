@@ -54,6 +54,19 @@ module Rails3JQueryAutocomplete
           assert_equal "Object Name" , response["label"]
         end
       end
+      context 'with separate value and label methods' do
+        should 'send separate messages to get value and data' do
+          item = mock(Object)
+          mock(item).send(:value) { 'value result' }
+          mock(item).send(:label) { 'label result' }
+          mock(item).id { 1 }
+          items  = [item]
+          response = self.json_for_autocomplete(items, :value, [], :label).first
+          assert_equal response["id"], "1"
+          assert_equal response["value"], "value result"
+          assert_equal response["label"], "label result"
+        end
+      end
     end
   end
 end
